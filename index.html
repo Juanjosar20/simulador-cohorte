@@ -1,0 +1,58 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Simulador Cohorte Personalizada · 30X</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0A;--panel:#141414;--line:rgba(255,255,255,.12);--ink:#fff;--soft:#CFCFC6;--mute:#8F8F83;--lime:#E9FF7B;--bar:#3a3a3a;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--soft);font:16px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:32px max(16px,env(safe-area-inset-left)) 56px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+header img{height:54px}.tag{font:600 12px/1 Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+h1{color:var(--ink);font-size:clamp(28px,4.5vw,46px);line-height:1.05;letter-spacing:-.03em;margin:22px 0 6px}h1 em{font-style:normal;color:var(--lime)}
+.sub{color:var(--mute);margin:0 0 26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+.ctl{display:grid;gap:14px}.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+label{font:600 12px Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+input[type=range]{flex:1;min-width:200px;accent-color:#E9FF7B;height:28px}
+input[type=number]{width:110px;font:700 28px Inter;color:var(--ink);background:#0f0f0f;border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}.kpi.hl{background:var(--lime);border-color:var(--lime)}
+.kpi .v{color:var(--ink);font:800 clamp(24px,3.4vw,36px)/1 Inter;letter-spacing:-.03em;font-variant-numeric:tabular-nums}.kpi.hl .v,.kpi.hl .l{color:#0A0A0A}
+.kpi .l{font-size:13px;color:var(--mute);margin-top:8px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+h2{font:700 14px Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}td,th{padding:10px 6px;border-bottom:1px solid var(--line);text-align:left}th{font:600 11px Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}td.r,th.r{text-align:right}
+tr.on td{color:var(--ink);font-weight:700}tr.on td:first-child{color:var(--lime)}tr.off td{color:#5d5d56}
+.bar{height:10px;border-radius:5px;background:var(--bar)}.bar.on{background:var(--lime)}
+.note{font-size:13px;color:var(--mute);margin-top:18px}
+.next{margin-top:14px;border-left:3px solid var(--lime);padding:10px 14px;background:#111;border-radius:0 10px 10px 0;color:var(--ink)}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}}
+</style></head><body><div class="wrap">
+<header><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iQ2FwYV8yIiBkYXRhLW5hbWU9IkNhcGEgMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTA4MCAzNzEuMjMiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNmMmYyZjI7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2VlZmY4ZDsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGcgaWQ9IkNhcGFfMS0yIiBkYXRhLW5hbWU9IkNhcGEgMSI+CiAgICA8Zz4KICAgICAgPHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjEzMy4wMiA5My40IDI5LjM4IDkwLjIzIDI5LjM4IDUuMTUgMjI2LjQ5IDUuMTUgMTMzLjAyIDkzLjQiLz4KICAgICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMzE1LjU0LDI0My44OWMwLDI1LjA4LTYuOTgsNDcuMTgtMjAuODksNjYuMjMtMTMuOTMsMTkuMDgtMzIuNjYsMzQuMDQtNTYuMjEsNDQuODctMjMuNTMsMTAuODItNDkuOTEsMTYuMjQtNzkuMTQsMTYuMjQtMzUuNCwwLTY2LjE2LTYuODgtOTIuMjktMjAuNjQtMjYuMTEtMTMuNzMtNDguNDYtMzUuMzgtNjcuMDEtNjQuOTVsNzcuODMtNTMuMWM1Ljg1LDkuOTcsMTIuOSwxOC40OCwyMS4xNCwyNS41MSw4LjI2LDcuMDUsMTcuMzcsMTIuNjMsMjcuMzQsMTYuNzcsOS45Nyw0LjEyLDIwLjk2LDYuMTgsMzIuOTksNi4xOCwxMC42NSwwLDIwLjExLTEuMzYsMjguMzctNC4xMiw4LjI0LTIuNzYsMTQuODYtNi45NSwxOS44My0xMi42Myw1LTUuNjcsNy40OC0xMi42Myw3LjQ4LTIwLjg5LDAtOC45NC0yLjc2LTE2LjA3LTguMjYtMjEuMzktNS41LTUuMzItMTIuNDUtOS4xOS0yMC44Ni0xMS42LTguNDQtMi40MS0xNy42My0zLjYyLTI3LjU5LTMuNjItNC44MiwwLTkuOTcuNDMtMTUuNDcsMS4yOC01LjUuODgtMTAuNjcsMi4wNi0xNS40NywzLjYyLTQuODIsMS41Ni05LjI5LDMuNTQtMTMuNDEsNS45M2wtMjMuNzMtNTcuNzUsNjguMjktNjUuNjVoLS4wOEwyNTIuNzMsNS4xNWgzMi40OWwxOC40NSw0My44NC04OC4zMyw4My44M2M2Ljc4LDEuNDMsMTMuNDYsMy4zNiwyMC4wMSw1Ljg4LDE1LjI5LDUuODUsMjguOTUsMTMuODMsNDEsMjMuOTgsMTIuMDMsMTAuMTQsMjEuNTcsMjIuMTcsMjguNjIsMzYuMSw3LjAzLDEzLjkxLDEwLjU3LDI4Ljk1LDEwLjU3LDQ1LjEyWiIvPgogICAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMTA4MCA1LjE2IDk0NC4yNSA1LjE2IDg3MC43IDk5LjAxIDc5Ny4xNSA1LjE2IDY2MS40IDUuMTYgODAyLjgyIDE4NS42MSA2NjEuNCAzNjYuMDcgNzk3LjE1IDM2Ni4wNyA4NzAuNyAyNzIuMjIgOTQ0LjI1IDM2Ni4wNyAxMDgwIDM2Ni4wNyA5MzguNTcgMTg1LjYxIDEwODAgNS4xNiIvPgogICAgICA8Zz4KICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik01NjUuNDUsMzY2LjAxYy0xNS45MiwzLjUyLTMzLjI3LDUuMjItNTIuMDcsNS4yMnMtMzYuODYtMS43Ni01My4xLTUuMzJjLTE1LjU0LTMuMzQtMjkuNzMtOC4zNC00Mi41Ni0xNC45Ni0xLjIxLS42LTIuNDEtMS4yMy0zLjU5LTEuODgtMjYuOTktMTQuNzktNDcuMzgtMzYuMS02MS4xMS02My45NS0xMy43Ni0yNy44NC0yMC42MS02MS4wMS0yMC42MS05OS41czYuMTUtNzIuMDEsMjAuNjEtOTkuNWMxLjg4LTMuNTcsMy44NC02Ljk4LDUuODctMTAuMjQsMjguODctNDYuMTUsODguODgtNjIuNjQsMTM2LjYzLTM2LjQ4LjIuMTMuNDMuMjMuNjMuMzUsNS44NywzLjI2LDExLjM1LDYuODMsMTYuNDQsMTAuOCwxNS4wOSwxMS42LDI2Ljg5LDI2LjI5LDM1Ljg4LDQ0LjQ2LjAzLjAzLjAzLjA4LjA1LjEtOS45Ny01LjY3LTIxLjY5LTguNDktMzUuMTUtOC40OS0xNC4xOSwwLTI2LjUxLDIuOTYtMzYuOTEsOC44OS4wOC0uMTMuMTMtLjI4LjItLjQtNy4zNiw0LjE0LTEzLjc4LDkuODItMTkuMjMsMTcuMDUtMTMuMjYsMTctMTkuODYsNDEuNS0xOS44Niw3My40NiwwLDcuODYuNDUsMTUuMjQsMS4zMywyMi4xNCwyLjE4LDI5LjIyLDguNzksNTUuMDEsMTkuODEsNzcuMzUsMTMuNzYsMjcuODQsMzMuOTQsNDkuMTYsNjAuNTgsNjMuOTUsMTMuNjEsNy41NiwyOC44MiwxMy4xOCw0NS42MiwxNi44NS4xOC4wNS4zNS4wOC41My4xWiIvPgogICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTQ1OS43NSw1LjIyYzE1LjkyLTMuNTIsMzMuMjctNS4yMiw1Mi4wNy01LjIyczM2Ljg2LDEuNzYsNTMuMSw1LjMyYzE1LjU0LDMuMzQsMjkuNzMsOC4zNCw0Mi41NiwxNC45NiwxLjIxLjYsMi40MSwxLjIzLDMuNTksMS44OCwyNi45OSwxNC43OSw0Ny4zOCwzNi4xLDYxLjExLDYzLjk1LDEzLjc2LDI3Ljg0LDIwLjYxLDYxLjAxLDIwLjYxLDk5LjVzLTYuMTUsNzIuMDEtMjAuNjEsOTkuNWMtMS44OCwzLjU3LTMuODQsNi45OC01Ljg3LDEwLjI0LTI4Ljg3LDQ2LjE1LTg4Ljg4LDYyLjY0LTEzNi42MywzNi40OC0uMi0uMTMtLjQzLS4yMy0uNjMtLjM1LTUuODctMy4yNi0xMS4zNS02LjgzLTE2LjQ0LTEwLjgtMTUuMDktMTEuNi0yNi44OS0yNi4yOS0zNS44OC00NC40Ni0uMDMtLjAzLS4wMy0uMDgtLjA1LS4xLDkuOTcsNS42NywyMS42OSw4LjQ5LDM1LjE1LDguNDksMTQuMTksMCwyNi41MS0yLjk2LDM2LjkxLTguODktLjA4LjEzLS4xMy4yOC0uMi40LDcuMzYtNC4xNCwxMy43OC05LjgyLDE5LjIzLTE3LjA1LDEzLjI2LTE3LDE5Ljg2LTQxLjUsMTkuODYtNzMuNDYsMC03Ljg2LS40NS0xNS4yNC0xLjMzLTIyLjE0LTIuMTgtMjkuMjItOC43OS01NS4wMS0xOS44MS03Ny4zNS0xMy43Ni0yNy44NC0zMy45NC00OS4xNi02MC41OC02My45NS0xMy42MS03LjU2LTI4LjgyLTEzLjE4LTQ1LjYyLTE2Ljg1LS4xOC0uMDUtLjM1LS4wOC0uNTMtLjFaIi8+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg==" alt="30X"><span class="tag">Cohorte personalizada de AI para ventas · USD</span></header>
+<h1>Simulador de <em>precio por volumen</em></h1>
+<p class="sub">Mueve la cantidad de integrantes y mira la inversión total, el precio por persona y el ahorro frente al precio estándar de US$1.950.</p>
+<section class="card ctl"><label for="n">Integrantes de la cohorte (mínimo 50)</label>
+<div class="row"><input id="r" type="range" min="50" max="200" step="1" value="200" aria-label="Integrantes"><input id="n" type="number" min="50" max="200" value="200"></div></section>
+<div class="kpis">
+<div class="kpi hl"><div class="v" id="tot"></div><div class="l">inversión total</div></div>
+<div class="kpi"><div class="v" id="avg"></div><div class="l">promedio por persona</div></div>
+<div class="kpi"><div class="v" id="sav"></div><div class="l">ahorro vs. precio estándar</div></div>
+<div class="kpi"><div class="v" id="mar"></div><div class="l">costo de la siguiente persona</div></div>
+</div>
+<div class="grid2">
+<section class="card"><h2>Precio de cada persona, por rango</h2><table><thead><tr><th>Rango</th><th class="r">Por persona</th><th class="r">Personas</th><th class="r">Subtotal</th></tr></thead><tbody id="tb"></tbody></table><div class="next" id="nx"></div></section>
+<section class="card"><h2>Referencia</h2><table><thead><tr><th>Integrantes</th><th class="r">Inversión</th><th class="r">Promedio</th><th class="r">Ahorro</th></tr></thead><tbody id="ref"></tbody></table></section>
+</div>
+<p class="note">Precio estándar: US$1.950 por persona (cupo de AI Sales en cohorte compartida). Cohorte personalizada desde 50 integrantes. Precio indicativo en USD; el alcance final se define en la reunión de diagnóstico.</p>
+</div>
+<script>
+const T=[[1,50,1360,'Primeras 50'],[51,75,860,'De 51 a 75'],[76,100,720,'De 76 a 100'],[101,150,550,'De 101 a 150'],[151,200,300,'De 151 a 200']];
+const STD=1950,f=n=>'US$'+Math.round(n).toLocaleString('es-CO');
+function total(n){let t=0;for(const[a,b,p]of T){if(n>=a)t+=(Math.min(n,b)-a+1)*p}return t}
+function draw(n){n=Math.max(50,Math.min(200,Math.round(+n||50)));r.value=n;document.getElementById('n').value=n;
+const t=total(n);tot.textContent=f(t);avg.textContent=f(t/n);sav.textContent=Math.round((1-t/(n*STD))*100)+' %';
+const nxt=T.find(([a,b])=>n+1>=a&&n+1<=b);mar.textContent=nxt?f(nxt[2]):'—';
+tb.innerHTML=T.map(([a,b,p,l])=>{const k=n>=a?Math.min(n,b)-a+1:0;return `<tr class="${k?'on':'off'}"><td>${l}</td><td class="r">${f(p)}</td><td class="r">${k}</td><td class="r">${k?f(k*p):'—'}</td></tr>`}).join('');
+nx.innerHTML=n<200?`Con <b>${200-n}</b> personas más llegan a 200: <b>${f(total(200)-t)}</b> adicionales y el promedio baja a <b>${f(total(200)/200)}</b>.`:'Con 200 integrantes tienen el mejor precio de la tabla.';
+ref.innerHTML=[50,75,100,150,200].map(m=>`<tr class="${m===n?'on':''}"><td>${m}</td><td class="r">${f(total(m))}</td><td class="r">${f(total(m)/m)}</td><td class="r">${Math.round((1-total(m)/(m*STD))*100)} %</td></tr>`).join('')}
+const r=document.getElementById('r');r.addEventListener('input',e=>draw(e.target.value));document.getElementById('n').addEventListener('change',e=>draw(e.target.value));draw(200);
+</script></body></html>
