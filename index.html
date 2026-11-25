@@ -45,7 +45,7 @@ tr.on td{color:var(--ink);font-weight:700}tr.on td:first-child{color:var(--lime)
 <p class="note">Precio estándar: US$1.950 por persona (cupo de AI Sales en cohorte compartida). Cohorte personalizada desde 50 integrantes. Precio indicativo en USD; el alcance final se define en la reunión de diagnóstico.</p>
 </div>
 <script>
-const T=[[1,50,1360,'Primeras 50'],[51,75,860,'De 51 a 75'],[76,100,720,'De 76 a 100'],[101,150,550,'De 101 a 150'],[151,200,300,'De 151 a 200']];
+const T=[[1,50,900,'Primeras 50'],[51,75,580,'De 51 a 75'],[76,100,480,'De 76 a 100'],[101,150,370,'De 101 a 150'],[151,200,200,'De 151 a 200']];
 const STD=1950,f=n=>'US$'+Math.round(n).toLocaleString('es-CO');
 function total(n){let t=0;for(const[a,b,p]of T){if(n>=a)t+=(Math.min(n,b)-a+1)*p}return t}
 function draw(n){n=Math.max(50,Math.min(200,Math.round(+n||50)));r.value=n;document.getElementById('n').value=n;
